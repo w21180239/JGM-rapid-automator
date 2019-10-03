@@ -7,7 +7,7 @@ import time
 
 
 class Automator:
-    def __init__(self, device: str, targets: dict):
+    def __init__(self, device: str, targets: dict,ban_list:list):
         # device: 如果是 USB 连接，则为 adb devices 的返回结果；如果是模拟器，则为模拟器的控制 URL 。
         self.d = u2.connect(device)
         self.targets = targets
@@ -22,6 +22,7 @@ class Automator:
             8: (541, 568),
             9: (787, 447)
         }
+        self.ban_list = ban_list
 
     def start(self):
         sleep_time = 3      #两次检测之间的间隔
@@ -45,6 +46,13 @@ class Automator:
                         break
                     if self._match_target(target,screen):
                         success_counter += 1
+                        if target in self.ban_list:
+                            print(f'遇到{target.value[8:-4]}重启游戏...')
+                            self.d.app_stop("com.tencent.jgm")
+                            self.d.app_start("com.tencent.jgm")
+                            time.sleep(10)
+
+
             else:
                 no_train_counter+=1
                 if no_train_counter>=20:
@@ -80,8 +88,9 @@ class Automator:
             ex, ey = self._get_target_position(target)
 
             # 搬运货物。
-            for j in range(4):
-                self.d.swipe(sx, sy, ex, ey)
+            if target not in self.ban_list:
+                for j in range(3):
+                    self.d.swipe(sx, sy, ex, ey)
             return True
         return False
 
