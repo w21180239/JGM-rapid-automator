@@ -34,6 +34,8 @@ if __name__ == '__main__':
         # TargetType.Cotton:8,
         # TargetType.Stone:7
     }
+
+    #遇到哪些货物重启
     ban_list = [TargetType.Armoire]
     # 连接 adb 。
     instance = Automator('127.0.0.1:7555', targets,ban_list)
