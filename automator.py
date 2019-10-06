@@ -38,6 +38,9 @@ class Automator:
         restart_counter = 0
         while True:
             if self.mode !='拉货':
+                # 进入商店
+                self.d.click(424, 1822)
+                # 开始点击，但考虑到运行速度，未添加次数限制，所以不会自动停下，请手动重启脚本
                 self.d.click(*self.positions[self.mode])
             else:
                 # 判断是否出现货物。

@@ -36,7 +36,7 @@ if __name__ == '__main__':
     }
 
     # 脚本模式---拉货，福气，多福，相册
-    mode = '拉货'
+    mode = '相册'
     # 连接 adb 。
     instance = Automator('127.0.0.1:7555', targets,mode)
 
