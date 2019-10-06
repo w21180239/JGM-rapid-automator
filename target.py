@@ -1,5 +1,5 @@
 from enum import Enum
-
+import cv2
 
 class TargetType(Enum):
     # 货物枚举类型，请将没用到的建筑物对应的货物注释掉，提高程序运行效率
@@ -12,22 +12,22 @@ class TargetType(Enum):
     # Box = 'targets/Box.jpg'
     # Book = 'targets/Book.jpg'
     # Bag = 'targets/Bag.jpg'
-    Coal = 'targets/Coal.jpg'
+    # Coal = 'targets/Coal.jpg'
     # Grass = 'targets/Grass.jpg'
     # Sofa = 'targets/Sofa.jpg'
-    Chicken = 'targets/Chicken.jpg'
+    Chicken = cv2.imread('targets/Chicken.jpg')
     # Cloth = 'targets/Cloth.jpg'
     # Cotton = 'targets/Cotton.jpg'
     # Plant = 'targets/Plant.jpg'
     # Stone = 'targets/Stone.jpg'
-    Carpet = 'targets/Carpet.jpg'
+    Carpet = cv2.imread('targets/Carpet.jpg')
     # Computer = 'targets/Computer.jpg'
-    Dogfood = 'targets/Dogfood.jpg'
-    Oil = 'targets/Oil.jpg'
+    # Dogfood = 'targets/Dogfood.jpg'
+    Oil = cv2.imread('targets/Oil.jpg')
     # Quilt = 'targets/Quilt.jpg'
     # Screw = 'targets/Screw.jpg'
-    Shoes = 'targets/Shoes.jpg'
-    Tool = 'targets/Tool.jpg'
-    Microphone = 'targets/Microphone.jpg'
-    Armoire = 'targets/Armoire.jpg'
+    # Shoes = 'targets/Shoes.jpg'
+    Tool = cv2.imread('targets/Tool.jpg')
+    Microphone = cv2.imread('targets/Microphone.jpg')
+    # Armoire = 'targets/Armoire.jpg'
 

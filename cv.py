@@ -9,8 +9,8 @@ class UIMatcher:
     def match(screen, target: TargetType):
         # 获取对应货物的图片。
         # 有个要点：通过截屏制作货物图片时，请在快照为实际大小的模式下截屏。
-        template = cv2.imread(target.value)
-        print(f'正在寻找{target.value[8:-3]}',end='')
+        template = target.value
+        # print(f'正在寻找{target.value[8:-3]}',end='')
         # 获取货物图片的宽高。
         th, tw = template.shape[:2]
 
@@ -24,15 +24,14 @@ class UIMatcher:
                 # 矩形左上角的位置。
                 tl = min_loc
                 # 这里，我随机加入了数字（15），用于补偿匹配值和真实位置的差异。
-                print('\b---------------------------------成功')
+                # print('\b---------------------------------成功')
                 return tl[0] + tw / 2 + 15, tl[1] + th / 2 + 15
-        print('\b---------------------------------失败')
+        # print('\b---------------------------------失败')
         return None
 
 
     @staticmethod
-    def Detect_signal_object(screen, object_path):
-        template = cv2.imread(object_path)
+    def Detect_signal_object(screen, template):
 
         # 调用 OpenCV 模板匹配。
         for i in range(Detect_num):
@@ -46,6 +45,4 @@ class UIMatcher:
 
 
 
-    @staticmethod
-    def read(filepath: str):
-        return cv2.imread(filepath)
+

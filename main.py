@@ -17,28 +17,28 @@ if __name__ == '__main__':
         # TargetType.Box: 1,
         # TargetType.Food: 8,
         # TargetType.Book: 6,
-        TargetType.Coal: 9,
+        # TargetType.Coal: 9,
         # TargetType.Grass: 8,
         # TargetType.Bag: 5,
         # TargetType.Sofa: 2,
-        TargetType.Chicken: 5,
+        TargetType.Chicken: 6,
         TargetType.Carpet:2,
-        TargetType.Microphone:6,
-        TargetType.Oil:7,
-        TargetType.Tool:8,
-        TargetType.Dogfood:1,
-        TargetType.Shoes:4,
-        TargetType.Armoire:3
+        TargetType.Microphone:5,
+        TargetType.Oil:8,
+        TargetType.Tool:7,
+        # TargetType.Dogfood:1,
+        # TargetType.Shoes:4,
+        # TargetType.Armoire:3
         # TargetType.Plant: 3,
         # TargetType.Cloth:5,
         # TargetType.Cotton:8,
         # TargetType.Stone:7
     }
 
-    #遇到哪些货物重启
-    ban_list = [TargetType.Armoire]
+    # 脚本模式---拉货，福气，多福，相册
+    mode = '拉货'
     # 连接 adb 。
-    instance = Automator('127.0.0.1:7555', targets,ban_list)
+    instance = Automator('127.0.0.1:7555', targets,mode)
 
     # 启动脚本。
     instance.start()
