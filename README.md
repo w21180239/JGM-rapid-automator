@@ -27,7 +27,7 @@ python main.py
 ## 自定义
 请在target.py和main.py中根据自己的实际情况修改货物种类和建筑物位置，如需添加新的货物类型请再1920*1080分辨率下的MuMu中截图并添加。
 
-##Weditor
+## Weditor
 
 我们可以使用 Weditor 工具，获取屏幕坐标，以及在线编写自动化脚本。
 

@@ -1,16 +1,15 @@
 from target import TargetType
 from cv import UIMatcher
 import uiautomator2 as u2
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 import time
 import cv2
 import inspect
 
 
 class Automator:
-    def __init__(self, device: str, targets: dict,mode:str):
+    def __init__(self, device: str, targets: dict, mode: str):
         # device: 如果是 USB 连接，则为 adb devices 的返回结果；如果是模拟器，则为模拟器的控制 URL 。
-        self.mode = '拉货'
         self.d = u2.connect(device)
         self.targets = targets
         self.positions = {
@@ -23,21 +22,22 @@ class Automator:
             7: (304, 681),
             8: (541, 568),
             9: (787, 447),
-            '福气':(217,831),
-            '多福':(545,846),
-            '满福':(878,829),
-            '相册':(533, 1447)
+            '福气': (217, 831),
+            '多福': (545, 846),
+            '满福': (878, 829),
+            '相册': (533, 1447)
         }
         self.mode = mode
 
     def start(self):
-        sleep_time = 3      #两次检测之间的间隔
-        no_train_counter = 0        #连续没有检测到火车的次数
+        start_time = time.time()
+        sleep_time = 3  # 两次检测之间的间隔
+        no_train_counter = 0  # 连续没有检测到火车的次数
         train_image = cv2.imread('Train.jpg')
         good_counter = 0
         restart_counter = 0
         while True:
-            if self.mode !='拉货':
+            if self.mode != '拉货':
                 # 进入商店
                 self.d.click(424, 1822)
                 # 开始点击，但考虑到运行速度，未添加次数限制，所以不会自动停下，请手动重启脚本
@@ -53,13 +53,13 @@ class Automator:
                     print('火车来了！')
                     no_train_counter = 0
                     success_counter = 0
-                    time.sleep(1)       #确保火车停了下来
+                    time.sleep(1)  # 确保火车停了下来
                     screen = self.d.screenshot(format="opencv")
                     for target in TargetType:
                         if success_counter > 2:
                             print('成功找到3个货物，提前结束！')
                             break
-                        if self._match_target(target,screen):
+                        if self._match_target(target, screen):
                             print(f'寻找{target.name}-------------------成功')
                             success_counter += 1
                             good_counter += 1
@@ -74,14 +74,13 @@ class Automator:
 
 
                 else:
-                    no_train_counter+=1
-                    if no_train_counter>=20:
-                        print(f'连续{no_train_counter*sleep_time}s没有检测到火车,结束脚本！')
-                        print(f'脚本运行期间一共\n拉取了--------------------{good_counter}次货物\n重启了--------------------{restart_counter}次')
+                    no_train_counter += 1
+                    if no_train_counter >= 20:
+                        print(f'连续{no_train_counter * sleep_time}s没有检测到火车,结束脚本！')
+                        print(
+                            f'脚本运行期间一共\n运行了--------------------{(time.time() - start_time) / 60}min\n拉取了--------------------{good_counter}次货物\n重启了--------------------{restart_counter}次')
                         return
                 time.sleep(sleep_time)
-
-
 
     def _swipe(self):
         # 滑动屏幕，收割金币。
@@ -91,7 +90,7 @@ class Automator:
             ex, ey = self._get_position(i * 3 + 3)
             self.d.swipe(sx, sy, ex, ey)
 
-    def _get_position(self,key):
+    def _get_position(self, key):
         # 获取指定建筑的屏幕位置。
         return self.positions.get(key)
 
@@ -99,7 +98,7 @@ class Automator:
         # 获取货物要移动到的屏幕位置。
         return self._get_position(self.targets.get(target))
 
-    def _match_target(self, target: TargetType,screen):
+    def _match_target(self, target: TargetType, screen):
         # 探测货物，并搬运货物。
 
         result = UIMatcher.match(screen, target)
@@ -113,5 +112,3 @@ class Automator:
                 self.d.swipe(sx, sy, ex, ey)
             return True
         return False
-
-
