@@ -1,7 +1,7 @@
 # 高效家国梦自动收割脚本
 
 > 这是基于 OpenCV 模板匹配的《家国梦》游戏自动化脚本。
-> 建议与[家国梦最佳建筑摆放计算](https://github.com/SQRPI/JiaGuoMeng)一起使用
+> 建议与[家国梦最佳建筑摆放计算](https://github.com/WANGPeisheng1997/JiaGuoMengCalculator)一起使用
 
 ## 安装与运行
 
