@@ -39,7 +39,7 @@ class UIMatcher:
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
             # 阈值判断。
-            if min_val <= 0.15:
+            if min_val <= 0.01:
                 return True
         return False
 

@@ -20,7 +20,7 @@ class TargetType(Enum):
     # Cotton = 'targets/Cotton.jpg'
     # Plant = 'targets/Plant.jpg'
     # Stone = 'targets/Stone.jpg'
-    Carpet = cv2.imread('targets/Carpet.jpg')
+    # Carpet = cv2.imread('targets/Carpet.jpg')
     # Computer = 'targets/Computer.jpg'
     # Dogfood = 'targets/Dogfood.jpg'
     Oil = cv2.imread('targets/Oil.jpg')
@@ -29,5 +29,6 @@ class TargetType(Enum):
     # Shoes = 'targets/Shoes.jpg'
     Tool = cv2.imread('targets/Tool.jpg')
     Microphone = cv2.imread('targets/Microphone.jpg')
+    Lamp = cv2.imread('targets/Lamp.jpg')
     # Armoire = 'targets/Armoire.jpg'
 

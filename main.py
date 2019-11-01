@@ -22,10 +22,11 @@ if __name__ == '__main__':
         # TargetType.Bag: 5,
         # TargetType.Sofa: 2,
         TargetType.Chicken: 6,
-        TargetType.Carpet:2,
+        # TargetType.Carpet:2,
         TargetType.Microphone:5,
         TargetType.Oil:8,
         TargetType.Tool:7,
+        TargetType.Lamp:2
         # TargetType.Dogfood:1,
         # TargetType.Shoes:4,
         # TargetType.Armoire:3
@@ -35,7 +36,7 @@ if __name__ == '__main__':
         # TargetType.Stone:7
     }
 
-    # 脚本模式---拉货，福气，多福，相册
+    # 脚本模式---拉货，福气，多福，相册，贡献
     mode = '拉货'
     # 连接 adb 。
     instance = Automator('127.0.0.1:7555', targets,mode)

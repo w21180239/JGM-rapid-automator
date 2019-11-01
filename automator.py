@@ -36,51 +36,65 @@ class Automator:
         train_image = cv2.imread('Train.jpg')
         good_counter = 0
         restart_counter = 0
+        contribution_counter = 0
         while True:
-            if self.mode != '拉货':
+            if self.mode not in ['拉货','贡献']:
                 # 进入商店
                 self.d.click(424, 1822)
                 # 开始点击，但考虑到运行速度，未添加次数限制，所以不会自动停下，请手动重启脚本
                 self.d.click(*self.positions[self.mode])
             else:
-                # 判断是否出现货物。
-                Screen = self.d.screenshot(format="opencv")
-                self.d.click(550, 1650)
+                if self.mode == '拉货':
+                    # 判断是否出现货物。
+                    Screen = self.d.screenshot(format="opencv")
+                    self.d.click(550, 1650)
 
-                # 滑动屏幕，收割金币。
-                self._swipe()
-                if UIMatcher.Detect_signal_object(Screen, train_image):
-                    print('火车来了！')
-                    no_train_counter = 0
-                    success_counter = 0
-                    time.sleep(1)  # 确保火车停了下来
-                    screen = self.d.screenshot(format="opencv")
-                    for target in TargetType:
-                        if success_counter > 2:
-                            print('成功找到3个货物，提前结束！')
-                            break
-                        if self._match_target(target, screen):
-                            print(f'寻找{target.name}-------------------成功')
-                            success_counter += 1
-                            good_counter += 1
-                        else:
-                            print(f'寻找{target.name}-------------------失败')
-                            # if target in self.ban_list:
-                    print(f'重启游戏...')
-                    restart_counter += 1
-                    self.d.app_stop("com.tencent.jgm")
-                    self.d.app_start("com.tencent.jgm")
-                    time.sleep(20)
+                    # 滑动屏幕，收割金币。
+                    self._swipe()
+                    if UIMatcher.Detect_signal_object(Screen, train_image):
+                        print('火车来了！')
+                        no_train_counter = 0
+                        success_counter = 0
+                        time.sleep(1)  # 确保火车停了下来
+                        screen = self.d.screenshot(format="opencv")
+                        for target in TargetType:
+                            if success_counter > 2:
+                                print('成功找到3个货物，提前结束！')
+                                break
+                            if self._match_target(target, screen):
+                                print(f'寻找{target.name}-------------------成功')
+                                success_counter += 1
+                                good_counter += 1
+                            else:
+                                print(f'寻找{target.name}-------------------失败')
+                                # if target in self.ban_list:
+                        print(f'重启游戏...')
+                        restart_counter += 1
+                        self.d.app_stop("com.tencent.jgm")
+                        self.d.app_start("com.tencent.jgm")
+                        time.sleep(20)
+                    # else:
+                        # no_train_counter += 1
+                        # if no_train_counter >= 20:
+                        #     print(f'连续{no_train_counter * sleep_time}s没有检测到火车,结束脚本！')
+                        #     print(
+                        #         f'脚本运行期间一共\n运行了--------------------{(time.time() - start_time) / 60}min\n拉取了--------------------{good_counter}次货物\n重启了--------------------{restart_counter}次')
+                        #     return
 
-
+                    time.sleep(sleep_time)
                 else:
-                    no_train_counter += 1
-                    if no_train_counter >= 20:
-                        print(f'连续{no_train_counter * sleep_time}s没有检测到火车,结束脚本！')
-                        print(
-                            f'脚本运行期间一共\n运行了--------------------{(time.time() - start_time) / 60}min\n拉取了--------------------{good_counter}次货物\n重启了--------------------{restart_counter}次')
-                        return
-                time.sleep(sleep_time)
+                    # 刷贡献的时候
+                    short_time = 1
+                    long_time = 5
+                    x,y = self._get_position(2)
+                    self.d.click(x,y)
+                    contribution_counter += 1
+                    if contribution_counter == long_time:
+                        self._swipe()
+                        contribution_counter = 0
+                    time.sleep(short_time)
+
+
 
     def _swipe(self):
         # 滑动屏幕，收割金币。
